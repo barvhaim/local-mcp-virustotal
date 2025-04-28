@@ -3,28 +3,15 @@ import base64
 import aiohttp
 import logging
 from dotenv import load_dotenv
-from mcp.server.fastmcp import FastMCP, AuthError
+from mcp.server.fastmcp import FastMCP 
 
 # Load environment variables
 load_dotenv()
 
-# Custom authentication hook
-def auth_hook(request):
-    # Allow unauthenticated GET/HEAD on the tool-listing endpoint
-    if request.method in ("GET", "HEAD") and request.url.path.endswith("/tools/list"):
-        return
-
-    # Enforce authentication on all other endpoints
-    sm_key = request.headers.get("x-smithery-api-key")
-    expected = os.getenv("SMITHERY_API_KEY")
-    if sm_key != expected:
-        raise AuthError("Invalid or missing Smithery API Key.")
 
 # Initialize FastMCP with the custom auth hook
 mcp = FastMCP(
-    name="VirusTotal MCP Server",
-    authenticate=auth_hook
-)
+    name="VirusTotal MCP Server")
 
 # Base URL for VirusTotal API
 BASE_URL = "https://www.virustotal.com/api/v3"
