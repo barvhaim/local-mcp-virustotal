@@ -17,7 +17,7 @@ This project implements a FastMCP server that wraps the VirusTotal API, allowing
 ## Prerequisites
 
 - Python 3.11 or higher
-- VirusTotal API key
+- VirusTotal API key `VIRUSTOTAL_API_KEY` in `.env` file
 
 ## Installation
 
